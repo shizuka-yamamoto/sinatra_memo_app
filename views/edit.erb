@@ -1,6 +1,6 @@
 <form action="/memos/<%= params[:id] %>" method="post">
   <input type="hidden" name="_method" value="PATCH">
-  <input type="text" name="title" value="<%= @memo[:title] %>" >
-  <textarea name="content" rows="5"><%= @memo[:content] %></textarea>
+  <input type="text" name="title" value="<%= h @memo[:title] %>" >
+  <textarea name="content" rows="5"><%= h @memo[:content] %></textarea>
   <input type="submit" value="更新">
 </form>

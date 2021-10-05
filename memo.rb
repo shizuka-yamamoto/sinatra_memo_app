@@ -31,6 +31,11 @@ class Memo
 
 end
 
+helpers do
+  def h(text)
+    Rack::Utils.escape_html(text)
+  end
+end
 
 get '/' do
   redirect to('/memos')
