@@ -14,7 +14,7 @@ class Memo
     JSON.parse(File.read("memos/#{id}.json"), symbolize_names: true)
   end
 
-  
+
 end
 
 
@@ -45,6 +45,7 @@ get '/memos/:id' do
 end
 
 get '/memos/:id/edit' do
+  @memo = Memo.find(id: params[:id])
   erb :edit
 end
 
