@@ -7,6 +7,10 @@ get '/' do
 end
 
 get '/memos' do
+  @memos = Dir.glob("memos/*").map do |file|
+    JSON.parse(File.read(file), symbolize_names: true)
+  end
+  @memos = @memos.sort_by { |file| file[:time] }
   erb :index
 end
 
