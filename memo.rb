@@ -3,6 +3,14 @@ require 'sinatra/reloader'
 require 'json'
 
 class Memo
+
+  def initialize(id:, title:, content:, time:)
+    @id = id
+    @title = title
+    @content = content
+    @time = time
+  end
+
   def self.create(title:, content:)
     memo = {id: SecureRandom.uuid, title: title, content: content, time: Time.now}
     File.open("memos/#{memo[:id]}.json", 'w') do |file|
@@ -14,6 +22,12 @@ class Memo
     JSON.parse(File.read("memos/#{id}.json"), symbolize_names: true)
   end
 
+  def update
+    memo = {id: @id, title: @title, content: @content, time: @time}
+    File.open("memos/#{@id}.json", 'w') do |file|
+      file.puts JSON.pretty_generate(memo)
+    end
+  end
 
 end
 
@@ -50,7 +64,9 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id' do
-
+  memo = Memo.new(id: params[:id], title: params[:title], content: params[:content], time: Time.now)
+  memo.update
+  redirect to('/memos')
 end
 
 delete '/memos/:id' do
