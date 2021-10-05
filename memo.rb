@@ -2,6 +2,16 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 
+class Memo
+  def self.create(title:, content:)
+    memo = {id: SecureRandom.uuid, title: title, content: content, time: Time.now}
+    File.open("memos/#{memo[:id]}.json", 'w') do |file|
+      file.puts JSON.pretty_generate(memo)
+    end
+  end
+end
+
+
 get '/' do
   redirect to('/memos')
 end
@@ -19,7 +29,8 @@ get '/memos/new' do
 end
 
 post '/memos' do
-
+  Memo.create(title: params[:title], content: params[:content])
+  redirect to('/memos')
 end
 
 get '/memos/:id' do
