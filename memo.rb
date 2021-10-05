@@ -70,5 +70,6 @@ patch '/memos/:id' do
 end
 
 delete '/memos/:id' do
-
+  File.delete("memos/#{params[:id]}.json")
+  redirect to('/memos')
 end
