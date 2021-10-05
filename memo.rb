@@ -9,6 +9,12 @@ class Memo
       file.puts JSON.pretty_generate(memo)
     end
   end
+
+  def self.find(id:)
+    JSON.parse(File.read("memos/#{id}.json"), symbolize_names: true)
+  end
+
+  
 end
 
 
@@ -34,6 +40,7 @@ post '/memos' do
 end
 
 get '/memos/:id' do
+  @memo = Memo.find(id: params[:id])
   erb :show
 end
 
