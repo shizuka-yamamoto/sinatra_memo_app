@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 
 class Memo
-
   def initialize(id:, title:, content:, time:)
     @id = id
     @title = title
@@ -12,7 +13,7 @@ class Memo
   end
 
   def self.create(title:, content:)
-    memo = {id: SecureRandom.uuid, title: title, content: content, time: Time.now}
+    memo = { id: SecureRandom.uuid, title: title, content: content, time: Time.now }
     File.open("memos/#{memo[:id]}.json", 'w') do |file|
       file.puts JSON.pretty_generate(memo)
     end
@@ -23,12 +24,11 @@ class Memo
   end
 
   def update
-    memo = {id: @id, title: @title, content: @content, time: @time}
+    memo = { id: @id, title: @title, content: @content, time: @time }
     File.open("memos/#{@id}.json", 'w') do |file|
       file.puts JSON.pretty_generate(memo)
     end
   end
-
 end
 
 helpers do
@@ -42,7 +42,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = Dir.glob("memos/*").map do |file|
+  @memos = Dir.glob('memos/*').map do |file|
     JSON.parse(File.read(file), symbolize_names: true)
   end
   @memos = @memos.sort_by { |file| file[:time] }
