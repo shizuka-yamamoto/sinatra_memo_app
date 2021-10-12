@@ -1,0 +1,10 @@
+<div class="memo-input">
+  <div class="container">
+    <form action="/memos/<%= params[:id] %>" method="post">
+      <input type="hidden" name="_method" value="PATCH">
+      <input type="text" class="title" name="title" value="<%= h @memo[:title] %>" >
+      <textarea  class="content"name="content" rows="5"><%= h @memo[:content] %></textarea>
+      <input type="submit" class="btn" value="変更">
+    </form>
+  </div>
+</div>

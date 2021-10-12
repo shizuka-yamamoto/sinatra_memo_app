@@ -1,0 +1,11 @@
+<div class="memo-show">
+  <div class="container">
+    <h2><%= h @memo[:title] %></h2>
+    <p><%= h @memo[:content] %></p>
+    <form method="post" action="/memos/<%= params[:id] %>">
+      <a class="btn" href="<%= "/memos/#{params[:id]}/edit" %>">編集</a>
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" class="btn" value="削除">
+    </form>
+  </div>
+</div>
