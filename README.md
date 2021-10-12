@@ -18,5 +18,5 @@ bundle install
 ```
 `memo.rb`を実行し、サーバーを立ち上げ、ブラウザで http://localhost:4567 にアクセスする
 ```
-ruby memo.rb
+bundle exec ruby memo.rb
 ```
